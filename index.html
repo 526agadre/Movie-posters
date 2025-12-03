@@ -22,43 +22,58 @@
 	<div id="vue_app" class="container">
 
 	    <div class="header">
-
-	      <div class="container">
-	        <h1 id="app_title">%title%</h1>
-	      </div>
-
 	    </div>
 
-	    <div class="main">
+		<div class="main">
 
-	      <div class="row">
-	        <div class="col-md-2" v-for="(movie, index) in movies" :key="index">
-	            <div class="thumbnail">
+			<div class="movie-board container" v-if="movies.length">
+				<div class="row justify-content-center align-items-center">
+					<div class="col-12 text-center mb-3">
+						<h2 class="text-dark">Movie Showcase</h2>
+					</div>
 
-						<img class="poster img-fluid" :src="movie.posters[movie.posterindex]" />
-						<div class="imageInfo">{{ index + 1 }} / {{ movies.length }}</div>
+					<div class="col-md-2 text-center">
+						<button class="btn btn-lg btn-outline-light prev-btn" @click="prevMovie" aria-label="Previous movie">
+							<i class="bi bi-chevron-left" style="font-size: 24px;"></i>
+						</button>
+					</div>
 
-						<p class="title">{{ movie.title }}</p>
-						<p class="genre">{{ movie.genre }}</p>
-						<p class="director"><strong>Director:</strong> {{ movie.director }}</p>
-						<p class="score"><i class="bi bi-star-fill" aria-hidden="true"></i> {{ movie.iscore }} </p>
-						<p class="runtime"><i class="bi bi-clock"></i> {{ movie.runtime }} min</p>
-						<p class="released"><i class="bi bi-calendar"></i> {{ movie.released[0] }} | <i class="bi bi-badge"></i> {{ movie.rating }}</p>
-						<p class="websites">
-							<a :href="movie.imdb" target="_blank" class="btn btn-sm btn-warning"> 
-								<i class="bi bi-link-45deg"></i> IMDb 
-							</a>
-						</p>
+					<div class="col-md-4">
+						<div class="thumbnail">
+							<img class="poster img-fluid" :src="currentMovie.posters[currentMovie.posterindex]" />
+						</div>
+					</div>
 
-			            <div class="social">
-			              <p class="likes"><i class="bi bi-hand-thumbs-up"></i> {{ movie.likes }}</p>
-			              <p class="dislikes"><i class="bi bi-hand-thumbs-down"></i> {{ movie.dislikes }}</p>
-			            </div>
-	            </div>
-	        </div>
+					<div class="col-md-4">
+						<div class="movie-details">
+							<div class="imageInfo">{{ currentIndex + 1 }} / {{ movies.length }}</div>
+							<h3 class="title">{{ currentMovie.title }}</h3>
+							<p class="genre">{{ currentMovie.genre }}</p>
+							<p class="director"><strong>Director:</strong> {{ currentMovie.director }}</p>
+							<p class="cast"><strong>Cast:</strong> {{ currentMovie.cast }}</p>
+							<p class="plot"><strong>Plot:</strong> {{ currentMovie.plot }}</p>
+							<p class="budget"><strong>Budget:</strong> {{ currentMovie.budget }}</p>
+							<p class="score small"><i class="bi bi-star-fill"></i> {{ currentMovie.iscore }}</p>
+							<p class="runtime small"><i class="bi bi-clock"></i> {{ currentMovie.runtime }} min</p>
+							<p class="websites mt-2">
+								<a :href="currentMovie.imdb" target="_blank" class="btn btn-sm btn-warning">IMDb</a>
+							</p>
+						</div>
+					</div>
 
-	      </div>
-	    </div>
+					<div class="col-md-2 text-center">
+						<button class="btn btn-lg btn-outline-light next-btn" @click="nextMovie" aria-label="Next movie">
+							<i class="bi bi-chevron-right" style="font-size: 24px;"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div v-else class="text-center p-5">
+				<p class="text-muted">Loading movies...</p>
+			</div>
+
+		</div>
 
 	    <div class="footer">
 	      <div class="container">
@@ -70,6 +85,7 @@
 	</div>
 
   	<!-- This load the Vue.js code -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqEQbPnh6m9gZ0WvF0sA7MsXsP1u6uZgW1Ff3zv5DkLv2K0fQ2Q5P5QBYTKyf" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="site.js"></script>
 
 

@@ -33,12 +33,26 @@ const vue_app = Vue.createApp({
         return {
             // This holds your movies.json data.
             movies: [],
-            /* ADD ADDITIONAL VARIABLES FOR STEP 3 HERE */
-         
-      }
-    },
+            // current displayed movie index
+            currentIndex: 0
+        }
+      },
+      computed: {
+        currentMovie() {
+          return this.movies[this.currentIndex] || {};
+        }
+      },
       methods: {
-            /* ADD FUNCTIONS/METHODS FOR STEP 7 HERE */
+            // go to the next movie (wraps to start)
+            nextMovie() {
+                  if (this.movies.length === 0) return
+                  this.currentIndex = (this.currentIndex + 1) % this.movies.length
+            },
+            // go to the previous movie (wraps to end)
+            prevMovie() {
+                  if (this.movies.length === 0) return
+                  this.currentIndex = (this.currentIndex - 1 + this.movies.length) % this.movies.length
+            }
       }
 })
 
